@@ -53,5 +53,22 @@
     ui: {
       namespace: "null",
     },
+    "cert-manager": {
+      acmeEmail: "jlewi@google.com",
+      acmeUrl: "https://acme-v01.api.letsencrypt.org/directory",
+      name: "cert-manager",
+      namespace: "kubeflow",
+    },
+    "iap-ingress": {
+      disableJwtChecking: "false",
+      envoyImage: "gcr.io/kubeflow-images-staging/envoy:v20180309-0fb4886b463698702b6a08955045731903a18738",
+      hostname: "null",
+      ipName: "ipName",
+      issuer: "letsencrypt-prod",
+      name: "iap-ingress",
+      namespace: "kubeflow",
+      oauthSecretName: "kubeflow-oauth",
+      secretName: "envoy-ingress-tls",
+    },
   },
 }
