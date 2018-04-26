@@ -39,7 +39,7 @@
     },
     "issue-summarization-model-serving": {
       endpoint: "REST",
-      image: "null",
+      image: "gcr.io/kubeflow-images-public/issue-summarization:0.1",
       name: "issue-summarization",
       namespace: "null",
       replicas: 2,

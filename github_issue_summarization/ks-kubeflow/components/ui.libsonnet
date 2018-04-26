@@ -41,13 +41,18 @@
           spec: {
             containers: [
               {
-                image: "gcr.io/kubeflow-images-staging/issue-summarization-ui:latest",
-		env: [
-		{
-		  name: "GITHUB_TOKEN",
-		  value: params.github_token,
-		}
-		],
+                image: "gcr.io/kubeflow-images-public/issue-summarization-ui@sha256:8344fcc0aa47c5923884e14141b91a2615ef765769f200c9974a48d876e78187",
+                env: [
+                  {
+                    name: "GITHUB_TOKEN",
+                    valueFrom: {
+                      secretKeyRef: {
+                        name: "github-token",
+                        key: "github-oauth",
+                      },
+                    },
+                  },
+                ],
                 name: "issue-summarization-ui",
                 ports: [
                   {
