@@ -1,25 +1,26 @@
 {
   all(params):: [
-    $.parts(params.namespace).jupyterHubConfigMap(params.jupyterHubAuthenticator, params.disks),
-    $.parts(params.namespace).jupyterHubService,
-    $.parts(params.namespace).jupyterHubLoadBalancer(params.jupyterHubServiceType),
-    $.parts(params.namespace).jupyterHub(params.jupyterHubImage),
-    $.parts(params.namespace).jupyterHubRole,
-    $.parts(params.namespace).jupyterHubServiceAccount,
-    $.parts(params.namespace).jupyterHubRoleBinding,
+    $.parts(params).jupyterHubConfigMap(params.jupyterHubAuthenticator, params.disks),
+    $.parts(params).jupyterHubService,
+    $.parts(params).jupyterHubLoadBalancer(params.jupyterHubServiceType),
+    $.parts(params).jupyterHub(params.jupyterHubImage, params.jupyterNotebookPVCMount, params.cloud),
+    $.parts(params).jupyterHubRole,
+    $.parts(params).jupyterHubServiceAccount,
+    $.parts(params).jupyterHubRoleBinding,
   ],
 
-  parts(namespace):: {
+  parts(params):: {
+    local namespace = std.toString(params.namespace),
     jupyterHubConfigMap(jupyterHubAuthenticator, disks): {
       local util = import "kubeflow/core/util.libsonnet",
       local diskNames = util.toArray(disks),
-      local kubeSpawner = $.parts(namespace).kubeSpawner(jupyterHubAuthenticator, diskNames),
-      result:: $.parts(namespace).jupyterHubConfigMapWithSpawner(kubeSpawner),
+      local kubeSpawner = $.parts(params).kubeSpawner(jupyterHubAuthenticator, diskNames),
+      result:: $.parts(params).jupyterHubConfigMapWithSpawner(kubeSpawner),
     }.result,
 
     kubeSpawner(authenticator, volumeClaims=[]): {
       // TODO(jlewi): We should make whether we use PVC configurable.
-      local baseKubeConfigSpawner = importstr "jupyterhub_spawner.py",
+      local baseKubeConfigSpawner = importstr "kubeform_spawner.py",
 
       authenticatorOptions:: {
 
@@ -136,12 +137,17 @@ c.RemoteUserAuthenticator.header_name = 'x-goog-authenticated-user-email'",
     },
 
     // image: Image for JupyterHub
-    jupyterHub(image): {
+    jupyterHub(image, notebookPVCMount, cloud): {
       apiVersion: "apps/v1beta1",
       kind: "StatefulSet",
       metadata: {
         name: "tf-hub",
         namespace: namespace,
+        annotations: {
+          // Add an annotation that is a hash of the spawner contents so that the pod will get
+          // restarted if the contents change.                  
+          spawner_hash: std.md5($.parts(params).kubeSpawner(params.jupyterHubAuthenticator, params.disks)),
+        },
       },
       spec: {
         replicas: 1,
@@ -176,6 +182,16 @@ c.RemoteUserAuthenticator.header_name = 'x-goog-authenticated-user-email'",
                   // Port 8081 accepts callbacks from the individual Jupyter pods.
                   {
                     containerPort: 8081,
+                  },
+                ],
+                env: [
+                  {
+                    name: "NOTEBOOK_PVC_MOUNT",
+                    value: notebookPVCMount,
+                  },
+                  {
+                    name: "CLOUD_NAME",
+                    value: cloud
                   },
                 ],
               },  // jupyterHub container
