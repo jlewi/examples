@@ -9,5 +9,8 @@ params + {
     "kubeflow-core" +: {
       jupyterHubAuthenticator: "iap",
     },
+    tensorboard +: {
+      logDir: "gs://kubecon-gh-demo/gh-t2t-out",      
+    },
   },
 }
