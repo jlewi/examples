@@ -51,7 +51,7 @@ push-cpu: build-cpu
 
 set-image: push-cpu
 	# Set the image to use
-	cd ../../ks-kubeflow && ks param set tensor2tensor cpuImage $(CPU_IMG):$(TAG)
+	cd ../../ks-kubeflow && ks param set tensor2tensor cpuImage $(CPU_IMG):$(TAG) && ks param set prepull-daemon t2tTrainerImage $(CPU_IMG):$(TAG)
 
 # To build without the cache set the environment variable
 # export DOCKER_BUILD_OPTS=--no-cache

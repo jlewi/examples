@@ -45,7 +45,7 @@
       replicas: 2,
     },
     tensor2tensor: {
-      cpuImage: "gcr.io/kubeflow-examples/issue-summarization-t2t-trainer-cpu:v20180428-9da5cb7-dirty-4e1f35",
+      cpuImage: "gcr.io/kubeflow-examples/issue-summarization-t2t-trainer-cpu:v20180428-ff948b2-dirty-ee0e2b",
       namespace: "null",
     },    
     tensorboard: {
@@ -56,7 +56,7 @@
       namespace: "null",
     },
     "tfjob-pvc": {
-      image: "gcr.io/kubeflow-examples/tf-job-issue-summarization:v20180427-6483484",
+      image: "gcr.io/kubeflow-examples/tf-job-issue-summarization:v20180428-ff948b2-dirty-3b553c",
       input_data: "/data/github_issues.csv",
       namespace: "null",
       output_model: "/data/model.h5",
@@ -70,6 +70,10 @@
       acmeUrl: "https://acme-v01.api.letsencrypt.org/directory",
       name: "cert-manager",
       namespace: "kubeflow",
+    },
+    "prepull-daemon": {
+      notebookImage: "gcr.io/kubeflow-examples/tf-job-issue-summarization:v20180428-ff948b2-dirty-3b553c",
+      "t2tTrainerImage": "gcr.io/kubeflow-examples/issue-summarization-t2t-trainer-cpu:v20180428-ff948b2-dirty-ee0e2b",
     },
     "iap-ingress": {
       disableJwtChecking: "false",

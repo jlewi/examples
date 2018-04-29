@@ -58,7 +58,7 @@ push: build
 
 set-image: push
 	# Set the image to use
-	cd ../ks-kubeflow && ks param set tfjob-pvc image $(IMG):$(TAG)
+	cd ../ks-kubeflow && ks param set tfjob-pvc image $(IMG):$(TAG) && ks param set prepull-daemon notebookImage $(IMG):$(TAG)
 
 # To build without the cache set the environment variable
 # export DOCKER_BUILD_OPTS=--no-cache
