@@ -18,6 +18,12 @@ environments:
       server: https://35.231.60.188
     k8sVersion: v1.7.0
     path: demo
+  kubecon-booth:
+    destination:
+      namespace: kubeflow
+      server: https://35.231.189.108
+    k8sVersion: v1.7.0
+    path: kubecon-booth
   kubecon-gh-demo-1:
     destination:
       namespace: kubeflow
