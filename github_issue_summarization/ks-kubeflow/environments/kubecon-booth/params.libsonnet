@@ -14,8 +14,8 @@ params + {
       jupyterHubAuthenticator: "iap",
     },
     "tensor2tensor" +: {
-      name: "gh-t2t-trainer-04292058",
-      outputGCSPath: "gs://kubecon-booth-gh-demo/gh-t2t-out/04292058",
+      name: "gh-t2t-trainer-04292110",
+      outputGCSPath: "gs://kubecon-booth-gh-demo/gh-t2t-out/04292110",
     },
   },
 }
