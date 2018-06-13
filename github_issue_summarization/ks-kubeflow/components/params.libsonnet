@@ -54,6 +54,12 @@
     },
     tfjob: {
       namespace: "null",
+      image: "",
+      sample_size: "2000000",
+      input_data_gcs_bucket: "",
+      input_data_gcs_path: "",
+      output_model_gcs_bucket: "",
+      output_model_gcs_path: "",
     },
     "tfjob-pvc": {
       image: "gcr.io/kubeflow-examples/tf-job-issue-summarization:v20180428-ff948b2-dirty-3b553c",
@@ -85,6 +91,8 @@
       namespace: "kubeflow",
       oauthSecretName: "kubeflow-oauth",
       secretName: "envoy-ingress-tls",
+    },
+    "data-downloader": {
     },
   },
 }
