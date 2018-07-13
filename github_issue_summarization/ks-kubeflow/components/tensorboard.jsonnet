@@ -64,12 +64,25 @@ local deployment = {
               "--logdir=" + params.logDir,
               "--port=80",
             ],
+            env: [
+              {
+                name: "GOOGLE_APPLICATION_CREDENTIALS",
+                value: "/var/run/secrets/sa/user-gcp-sa.json",
+              },
+            ],
             image: params.image,
             name: "tensorboard",
             ports: [
               {
                 containerPort: 80,
               },
+            ],
+            volumeMounts: [
+             {
+               mountPath: "/var/run/secrets/sa",
+               name: "sa-key",
+               readOnly: true,
+             },
             ],
             // "livenessProbe": {
             //    "httpGet": {
@@ -79,6 +92,15 @@ local deployment = {
             //    "initialDelaySeconds": 15,
             //    "periodSeconds": 3
             //  }
+          },
+        ],
+        volumes: [
+          {
+            name: "sa-key",
+            secret:{ 
+              defaultMode: 420,
+              secretName: "user-gcp-sa",
+            },
           },
         ],
       },

@@ -1,23 +1,11 @@
 apiVersion: 0.1.0
 environments:
-  cloud:
-    destination:
-      namespace: namespace
-      server: https://35.188.73.10
-    k8sVersion: v1.7.0
-    path: cloud
-  default:
-    destination:
-      namespace: default
-      server: https://35.188.73.10
-    k8sVersion: v1.7.0
-    path: default
-  jlewi:
+  jlewi-demo:
     destination:
       namespace: kubeflow
-      server: https://35.196.4.129
+      server: https://35.231.225.27
     k8sVersion: v1.9.6
-    path: jlewi
+    path: jlewi-demo
   kubecon-gh-demo-1:
     destination:
       namespace: kubeflow
