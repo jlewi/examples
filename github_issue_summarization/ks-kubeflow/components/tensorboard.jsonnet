@@ -2,41 +2,15 @@ local env = std.extVar("__ksonnet/environments");
 local params = std.extVar("__ksonnet/params").components.tensorboard;
 local k = import "k.libsonnet";
 
+// This is a weird hack to deal with the ksonnet bug
+// where if we don't import the service from a libsonnet file the Ambassador mapping
+// won't be parsed correctly
+// https://github.com/ksonnet/ksonnet/issues/670
+local tbService = import "tb-service.libsonnet";
+
 local name = params.name;
 local namespace = env.namespace;
-local service = {
-  apiVersion: "v1",
-  kind: "Service",
-  metadata: {
-    name: name + "-tb",
-    namespace: env.namespace,
-    annotations: {
-      "getambassador.io/config":
-        std.join("\n", [
-          "---",
-          "apiVersion: ambassador/v0",
-          "kind:  Mapping",
-          "name: " + name + "_mapping",
-          "prefix: /tensorboard/" + name + "/",
-          "rewrite: /",
-          "service: " + name + "-tb." + namespace,
-        ]),
-    },  //annotations
-  },
-  spec: {
-    ports: [
-      {
-        name: "http",
-        port: 80,
-        targetPort: 80,
-      },
-    ],
-    selector: {
-      app: "tensorboard",
-      "tb-job": name,
-    },
-  },
-};
+local service = tbService.tbService(name, env);
 
 local deployment = {
   apiVersion: "apps/v1beta1",
