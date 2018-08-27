@@ -123,7 +123,7 @@ local baseParams = std.extVar("__ksonnet/params").components["t2t-job"];
                                                           volumeMounts=workerVolumeMounts),
           [if params.numWorker > 0 then "Worker"]: $.tfJobReplica("WORKER", params.numWorker,
                                                                   workerCmd, workerImage,
-                                                                  numGpus=params.numPsGpu,
+                                                                  numGpus=params.numWorkerGpu,
                                                                   env=workerEnv,
                                                                   volumes=workerVolumes,
                                                                   volumeMounts=workerVolumeMounts),
