@@ -14,6 +14,10 @@ environments:
     path: jlewi
 kind: ksonnet.io/app
 libraries:
+  examples:
+    name: examples
+    registry: kubeflow
+    version: defc235463799d5600001ee0ed6ef68f7af24a17
   tf-serving:
     name: tf-serving
     registry: kubeflow
