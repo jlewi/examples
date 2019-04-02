@@ -6,6 +6,8 @@ This demo implements End-to-End Code Search on Kubeflow.
 
 This example uses large amounts of computation and cost several hundred dollars to run E2E on Cloud.
 
+* You might want to consider [setting up billing alerts](https://cloud.google.com/billing/docs/how-to/budgets) on GCP
+  to ensure you don't leave jobs running consuming large amounts of resources.
 
 # Prerequisites
 
