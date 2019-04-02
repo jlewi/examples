@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-FROM gcr.io/kubeflow-images-public/tensorflow-1.8.0-notebook-cpu
+FROM gcr.io/kubeflow-images-public/tensorflow-1.8.0-notebook-cpu:v0.5.0
 
 ENV KS_VER=0.12.0 KS_ARCH=linux_amd64
 
