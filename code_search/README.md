@@ -35,16 +35,23 @@ This example uses large amounts of computation and cost several hundred dollars 
 
 To get started, follow the instructions below.
 
-**NOTE**: We will assume that the Kubeflow cluster is available at `kubeflow.example.com`. Make sure
-you replace this with the true FQDN of your Kubeflow cluster in any subsequent instructions.
+* These instructions are for Kubeflow **v0.5.0**
 
-* Spawn a new JupyterLab instance inside the Kubeflow cluster by pointing your browser to
-  **https://kubeflow.example.com/hub** and clicking "**Start My Server**".
+* Navigate to the landing page for Kubeflow at **http://${FQDN}**
 
-* In the **Image** text field, enter `gcr.io/kubeflow-images-public/kubeflow-codelab-notebook:v20180808-v0.2-22-gcfdcb12`.
-  This image contains all the pre-requisites needed for the demo.
+  * Where ${FQDN} is the fully qualified domain name of your Kubebeflow cluster
+
+* From the Kubeflow landing page navigate to Notebooks and spawn a notebook
   
-* Once spawned, you should be redirected to the Jupyter Notebooks UI.
+* In the **Image** text field, enter [gcr.io/kubeflow-examples/kubeflow-codelab-notebook:v20190401-v0.2-183-ga1c0e69-dirty-89a5f3](gcr.io/kubeflow-examples/kubeflow-codelab-notebook:v20190401-v0.2-183-ga1c0e69-dirty-89a5f3).
+  
+  * This image contains all the pre-requisites needed for the demo.
+  * The source is in [kubeflow/examples/codelab_image](https://github.com/kubeflow/examples/tree/master/codelab-image)
+  * Use **namespace**, **kubeflow**
+
+    * This is needed on GCP because only that namespace contains a GCP service account credential.
+
+* Once spawned, you should be able to connect to the Jupyter UI
 
 * Spawn a new Terminal and run
   ```
